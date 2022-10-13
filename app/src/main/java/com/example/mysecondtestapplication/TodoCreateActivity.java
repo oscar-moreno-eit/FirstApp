@@ -21,7 +21,7 @@ public class TodoCreateActivity extends AppCompatActivity {
     private EditText etNewTodo;
     private Spinner spNewTodoCategory;
     private Button btnNewTodoSave;
-    private ArrayAdapter adapterCategory;//
+    private ArrayAdapter adapterCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
