@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">My Second Test Application</string>
+    <string name="error_message">No empty Todo</string>
+    <string-array name="category_list">
+        <item>
+            Learning
+        </item>
+        <item>
+            Home
+        </item>
+        <item>
+            Work
+        </item>
+    </string-array>
+</resources>
