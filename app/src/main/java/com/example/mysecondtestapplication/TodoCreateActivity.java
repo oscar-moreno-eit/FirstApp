@@ -43,14 +43,14 @@ public class TodoCreateActivity extends AppCompatActivity {
                     }else{
                         addNewTodo(newTodoInput,spNewTodoCategory.getSelectedItem().toString());
                     }
-        }
+                }
         );
 
 //        spNewTodoCategory.setOn -- Events
 
         adapterCategory = new ArrayAdapter(this, android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.category_list)
-                );
+        );
 
         spNewTodoCategory.setAdapter(adapterCategory);
 
@@ -74,7 +74,7 @@ public class TodoCreateActivity extends AppCompatActivity {
         super.onStart();
 
         Log.d(TAG, "onStart: ");
-        
+
     }
 
     @Override

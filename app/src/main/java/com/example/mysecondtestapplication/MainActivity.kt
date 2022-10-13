@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.GetContent
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
@@ -26,7 +28,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
     private lateinit var btnCreateTodo: FloatingActionButton
-//    private lateinit var etInputTodo: EditText --> moved to..
+    //    private lateinit var etInputTodo: EditText --> moved to..
     private lateinit var lvDisplayTodo: ListView
 
     companion object{
@@ -34,7 +36,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         private const val TAG = "MainActivity"
     }
 
+    private val getNewTodo = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result ->
 
+        // when TodoCreateActivity calls setResult....
+        // we receive the callback here....
+        //it.data
+        if (result.resultCode == RESULT_OK){
+            result.data?.getStringExtra(TodoCreateActivity.NEW_TODO)?.let {
+                addNewTodo(it)
+            }
+        }
+    }
 
     private val adapter: ArrayAdapter<String> by lazy {
         ArrayAdapter<String>(this, android.R.layout.simple_list_item_1)
@@ -92,15 +104,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun validateInput(view: View) {
         val openCreateActivity = Intent()
         openCreateActivity.setClass(this,TodoCreateActivity::class.java)
-        startActivityForResult(openCreateActivity,OPEN_REQ_CODE)
-
+        //startActivityForResult(openCreateActivity,OPEN_REQ_CODE)
+        getNewTodo.launch(openCreateActivity)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         Log.d(TAG, "onActivityResult: ")
-        
+
         if (requestCode == OPEN_REQ_CODE && resultCode == RESULT_OK && data != null){
             data.let {
                 val newTodo = it.getStringExtra(TodoCreateActivity.NEW_TODO)
